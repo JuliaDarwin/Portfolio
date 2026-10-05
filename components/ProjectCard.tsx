@@ -150,16 +150,12 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         <div className="flex justify-center lg:col-span-5 lg:justify-end">
           <div className="relative w-full max-w-md overflow-hidden rounded-xl border border-white/10 bg-zinc-950/70 shadow-xl transition-all duration-300 group-hover:border-violet-500/30">
             {/* Mockup Top Window Bar */}
-            <div className="flex h-7 items-center justify-between border-b border-white/[0.06] bg-zinc-900/80 px-3">
+            <div className="flex h-7 items-center border-b border-white/[0.06] bg-zinc-900/80 px-3">
               <div className="flex items-center gap-1.5">
                 <span className="h-2 w-2 rounded-full bg-red-500/80" />
                 <span className="h-2 w-2 rounded-full bg-amber-500/80" />
                 <span className="h-2 w-2 rounded-full bg-emerald-500/80" />
               </div>
-              <span className="truncate max-w-[180px] text-[10px] font-mono text-zinc-500">
-                {project.id}.demo
-              </span>
-              <div className="w-8" />
             </div>
 
             {/* Preview Image Frame */}

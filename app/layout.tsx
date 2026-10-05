@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   title: "Julia | Full Stack Developer",
   description:
     "Portfolio of Julia, a passionate Full Stack Developer specializing in React, Next.js, JavaScript, Angular, Java, and Spring Boot.",
+  icons: {
+    icon: "/icon.svg",
+  },
 };
 
 export default function RootLayout({

@@ -218,9 +218,50 @@ const STRONG_SKILLS: SkillItem[] = [
       </svg>
     ),
   },
+  {
+    name: "HTML5",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6">
+        <path d="M4 2l1.6 18 6.4 2 6.4-2 1.6-18H4z" fill="#E44D26" />
+        <path d="M12 3.6v16.7l5.1-1.6 1.3-15.1H12z" fill="#F16529" />
+        <path
+          d="M8.27 7.7h7.46l-.23 2.58H10.7l.21 2.37h4.34l-.45 4.96L12 18.33l-2.8-.72-.18-2.06h1.79l.09.96 1.1.28 1.1-.28.14-1.57H8.05L8.27 7.7z"
+          fill="#FFFFFF"
+        />
+      </svg>
+    ),
+  },
+  {
+    name: "CSS3",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6">
+        <path d="M4 2l1.6 18 6.4 2 6.4-2 1.6-18H4z" fill="#1572B6" />
+        <path d="M12 3.6v16.7l5.1-1.6 1.3-15.1H12z" fill="#33A9DC" />
+        <path
+          d="M8 7.5h8l-.3 3.2H12v2.3h4.6l-.7 7.2L12 21.3l-4.1-1.1-.3-3.1h2.3l.1 1.4 2 .5 2-.5.2-2.5H8.7l-.2-2.3h7.9l.2-2.4H8V7.5z"
+          fill="#FFFFFF"
+        />
+      </svg>
+    ),
+  },
 ];
 
 const BASIC_KNOWLEDGE: SkillItem[] = [
+  {
+    name: "Kotlin",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6">
+        <defs>
+          <linearGradient id="kotlin-grad" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#C757BC" />
+            <stop offset="50%" stopColor="#7F52FF" />
+            <stop offset="100%" stopColor="#0095D5" />
+          </linearGradient>
+        </defs>
+        <path d="M24 24H0V0h24L12 12l12 12Z" fill="url(#kotlin-grad)" />
+      </svg>
+    ),
+  },
   {
     name: "AWS Cloud",
     icon: (
@@ -328,7 +369,7 @@ export default function AboutPage() {
             About Me
           </span>
           <h1 className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            From biology to Code
+            From Biology to Code
           </h1>
           <p className="mt-4 text-base leading-relaxed text-zinc-300 sm:text-lg">
             Coming from a background in Biology and Languages, I decided to follow my passion for coding and pivot my career towards it. I have been building personal projects as well as projects responding to other people/businesses needs. I love to be able to design myself a solution and build it from scratch!
@@ -375,7 +416,7 @@ export default function AboutPage() {
             </h2>
           </div>
 
-          <div className="mx-auto max-w-4xl grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+          <div className="mx-auto max-w-4xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4">
             {BASIC_KNOWLEDGE.map((skill) => (
               <div
                 key={skill.name}
