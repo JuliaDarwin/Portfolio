@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { sendContactEmail } from "@/app/actions/sendEmail";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function ContactForm() {
+  const { t } = useLanguage();
   const [topic, setTopic] = useState("");
   const [senderEmail, setSenderEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -17,7 +19,7 @@ export default function ContactForm() {
 
     if (!topic.trim() || !senderEmail.trim() || !message.trim()) {
       setStatus("error");
-      setErrorMessage("Please fill in all fields.");
+      setErrorMessage(t.contact.errorRequired);
       return;
     }
 
@@ -83,10 +85,13 @@ export default function ContactForm() {
               </svg>
             </div>
             <div>
-              <h3 className="text-xl font-bold text-white">Message Sent!</h3>
+              <h3 className="text-xl font-bold text-white">
+                {t.contact.successTitle}
+              </h3>
               <p className="mt-2 text-sm text-zinc-300 max-w-sm mx-auto leading-relaxed">
-                Thank you for reaching out! I&apos;ve received your message and will reply to{" "}
-                <span className="text-violet-300 font-mono">{senderEmail}</span> as soon as possible.
+                {t.contact.successMessagePart1}{" "}
+                <span className="text-violet-300 font-mono">{senderEmail}</span>{" "}
+                {t.contact.successMessagePart2}
               </p>
             </div>
             <div className="pt-4">
@@ -95,7 +100,7 @@ export default function ContactForm() {
                 onClick={handleReset}
                 className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/[0.04] px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-zinc-200 transition hover:bg-white/[0.08] hover:text-white active:scale-95"
               >
-                Send Another Message
+                {t.contact.sendAnother}
               </button>
             </div>
           </div>
@@ -108,7 +113,7 @@ export default function ContactForm() {
                 htmlFor="topic"
                 className="mb-1.5 block text-xs font-mono font-semibold uppercase tracking-wider text-zinc-300"
               >
-                Topic <span className="text-violet-400">*</span>
+                {t.contact.topicLabel} <span className="text-violet-400">*</span>
               </label>
               <input
                 id="topic"
@@ -118,7 +123,7 @@ export default function ContactForm() {
                 disabled={status === "loading"}
                 value={topic}
                 onChange={(e) => setTopic(e.target.value)}
-                placeholder="e.g. Project Inquiry / Job Opportunity"
+                placeholder={t.contact.topicPlaceholder}
                 className="w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-zinc-100 placeholder-zinc-500 outline-none transition duration-200 focus:border-violet-500 focus:bg-white/[0.07] focus:ring-2 focus:ring-violet-500/25 disabled:opacity-50"
               />
             </div>
@@ -129,7 +134,7 @@ export default function ContactForm() {
                 htmlFor="senderEmail"
                 className="mb-1.5 block text-xs font-mono font-semibold uppercase tracking-wider text-zinc-300"
               >
-                Your Email <span className="text-violet-400">*</span>
+                {t.contact.emailLabel} <span className="text-violet-400">*</span>
               </label>
               <input
                 id="senderEmail"
@@ -139,7 +144,7 @@ export default function ContactForm() {
                 disabled={status === "loading"}
                 value={senderEmail}
                 onChange={(e) => setSenderEmail(e.target.value)}
-                placeholder="you@example.com"
+                placeholder={t.contact.emailPlaceholder}
                 className="w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-zinc-100 placeholder-zinc-500 outline-none transition duration-200 focus:border-violet-500 focus:bg-white/[0.07] focus:ring-2 focus:ring-violet-500/25 disabled:opacity-50"
               />
             </div>
@@ -150,7 +155,7 @@ export default function ContactForm() {
                 htmlFor="message"
                 className="mb-1.5 block text-xs font-mono font-semibold uppercase tracking-wider text-zinc-300"
               >
-                Message <span className="text-violet-400">*</span>
+                {t.contact.messageLabel} <span className="text-violet-400">*</span>
               </label>
               <textarea
                 id="message"
@@ -160,7 +165,7 @@ export default function ContactForm() {
                 rows={5}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder="Write your message here..."
+                placeholder={t.contact.messagePlaceholder}
                 className="w-full resize-y min-h-[120px] rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-zinc-100 placeholder-zinc-500 outline-none transition duration-200 focus:border-violet-500 focus:bg-white/[0.07] focus:ring-2 focus:ring-violet-500/25 disabled:opacity-50"
               />
             </div>
@@ -185,7 +190,7 @@ export default function ContactForm() {
                   <div className="flex-1">
                     <p className="font-semibold">{errorMessage}</p>
                     <p className="mt-1 text-zinc-400">
-                      You can also reach out directly to{" "}
+                      {t.contact.errorDirect}{" "}
                       <a
                         href="mailto:juliaelguetaserra@gmail.com"
                         className="text-violet-300 underline underline-offset-2 hover:text-white"
@@ -226,11 +231,11 @@ export default function ContactForm() {
                       d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                     />
                   </svg>
-                  <span>Sending message...</span>
+                  <span>{t.contact.sendingButton}</span>
                 </>
               ) : (
                 <>
-                  <span>Send Message</span>
+                  <span>{t.contact.sendButton}</span>
                   <svg
                     className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                     fill="none"

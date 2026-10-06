@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import type { Project } from "@/data/projects";
+import { type Project, getLocalizedProject } from "@/data/projects";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface ProjectCardProps {
   project: Project;
@@ -10,6 +11,8 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { language, t } = useLanguage();
+  const localized = getLocalizedProject(project, language);
   const detailsId = `technical-details-${project.id}`;
 
   return (
@@ -22,21 +25,21 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         <div className="flex flex-col lg:col-span-7">
           {/* Title */}
           <h2 className="text-2xl font-bold tracking-tight text-white transition-colors duration-200 group-hover:text-violet-200 sm:text-3xl">
-            {project.title}
+            {localized.title}
           </h2>
 
           {/* Brief Description */}
           <p className="mt-3 text-base leading-relaxed text-zinc-300 sm:text-lg">
-            {project.description}
+            {localized.description}
           </p>
 
           {/* Technologies Used */}
           <div className="mt-6">
             <h3 className="text-xl font-mono font-semibold uppercase text-violet-400">
-              Technologies used
+              {t.projects.technologiesUsed}
             </h3>
             <div className="mt-2.5 flex flex-wrap gap-2">
-              {project.technologies.map((tech) => (
+              {localized.technologies.map((tech) => (
                 <span
                   key={tech}
                   className="rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-1.5 text-xs font-mono text-zinc-300 transition-colors hover:border-violet-500/40 hover:bg-violet-500/10 hover:text-white"
@@ -50,17 +53,17 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           {/* Links Section */}
           <div className="mt-6">
             <h3 className="text-xl font-mono font-semibold uppercase text-violet-400">
-              Links
+              {t.projects.links}
             </h3>
             <div className="mt-2.5 flex flex-wrap items-center gap-3">
               {/* Deployed Link */}
               <a
-                href={project.liveUrl}
+                href={localized.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group/btn inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 via-indigo-600 to-violet-700 px-4 py-2.5 text-xs font-semibold text-white shadow-md shadow-violet-600/25 transition-all duration-200 hover:from-violet-500 hover:to-indigo-500 hover:shadow-violet-600/40 active:scale-95"
               >
-                <span>Live Deployment</span>
+                <span>{t.projects.liveDeployment}</span>
                 <svg
                   className="h-3.5 w-3.5 transition-transform duration-200 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
                   fill="none"
@@ -78,7 +81,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
               {/* GitHub Repo */}
               <a
-                href={project.githubUrl}
+                href={localized.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group/btn inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/[0.04] px-4 py-2.5 text-xs font-semibold text-zinc-200 backdrop-blur-sm transition-all duration-200 hover:border-white/30 hover:bg-white/[0.08] hover:text-white active:scale-95"
@@ -93,7 +96,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                     d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
                   />
                 </svg>
-                <span>GitHub Repo</span>
+                <span>{t.projects.githubRepo}</span>
               </a>
             </div>
           </div>
@@ -124,8 +127,8 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               </svg>
               <span>
                 {isExpanded
-                  ? "Hide technical details"
-                  : "More technical details about the project"}
+                  ? t.projects.hideDetails
+                  : t.projects.moreDetails}
               </span>
               <svg
                 className={`h-4 w-4 transition-transform duration-300 ${
@@ -160,10 +163,10 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
             {/* Preview Image Frame */}
             <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-900/90">
-              {project.image ? (
+              {localized.image ? (
                 <Image
-                  src={project.image}
-                  alt={`${project.title} Preview`}
+                  src={localized.image}
+                  alt={`${localized.title} Preview`}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 45vw, 420px"
                   className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105"
@@ -186,7 +189,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                     </svg>
                   </div>
                   <span className="text-xs font-mono font-medium text-zinc-400">
-                    Preview Space
+                    {t.projects.previewSpace}
                   </span>
                   <span className="mt-0.5 text-[10px] text-zinc-600">
                     Add image in public/projects/
@@ -227,20 +230,19 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                   </svg>
                 </span>
                 <h4 className="text-base sm:text-lg font-bold text-white tracking-tight">
-                  Technical Details
+                  {t.projects.technicalDetails}
                 </h4>
               </div>
-             
             </div>
 
             {/* Architecture Overview Paragraph */}
             <p className="text-sm sm:text-base leading-relaxed text-zinc-200">
-              {project.technicalDetails.summary}
+              {localized.technicalDetails.summary}
             </p>
 
             {/* Highlights Grid (Spans full width across 2 columns on desktop) */}
             <div className="mt-2 grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
-              {project.technicalDetails.highlights.map((highlight, index) => {
+              {localized.technicalDetails.highlights.map((highlight, index) => {
                 const [title, ...descParts] = highlight.split(":");
                 const desc = descParts.join(":");
 
@@ -264,30 +266,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                 );
               })}
             </div>
-
-            {/* Quick Collapse Footer
-            <div className="mt-2 flex justify-end">
-              <button
-                type="button"
-                onClick={() => setIsExpanded(false)}
-                className="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-400 hover:text-violet-300 transition-colors"
-              >
-                <span>Collapse technical details</span>
-                <svg
-                  className="h-3.5 w-3.5 rotate-180"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </button>
-            </div> */}
           </div>
         </div>
       )}

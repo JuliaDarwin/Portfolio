@@ -1,7 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Home() {
+  const { t } = useLanguage();
+
   return (
     <div className="relative min-h-screen bg-[#08090e] text-zinc-100 overflow-hidden">
       {/* Background Decorative Ambient Glows */}
@@ -36,34 +41,43 @@ export default function Home() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
                 </span>
-                <span>Open for Junior Roles &amp; Opportunities</span>
+                <span>{t.home.statusBadge}</span>
               </div>
 
               {/* Main Title */}
               <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-white">
-                Hey, I&apos;m{" "}
+                {t.home.greeting}{" "}
                 <span className="bg-gradient-to-r from-violet-400 via-fuchsia-300 to-cyan-300 bg-clip-text text-transparent">
-                  Julia
+                  {t.home.name}
                 </span>
               </h1>
 
-              {/* Junior Developer Description */}
+              {/* Developer Description */}
               <p className="mt-6 max-w-xl text-base leading-relaxed text-zinc-300 sm:text-lg sm:leading-relaxed">
-                I am a passionate <strong className="font-semibold text-white">Full Stack Developer</strong>. In my free time you&apos;ll find me building new coding projects, bouldering, or enjoying a good Napolitan pizza!
+                {t.home.bioLead}{" "}
+                <strong className="font-semibold text-white">
+                  {t.home.role}
+                </strong>
+                {t.home.bioMid}
               </p>
 
               {/* Tech Stack Pills */}
               <div className="mt-6 flex flex-wrap items-center gap-2">
-                {["React", "Next.js", "JavaScript", "Angular", "Java","Spring Boot"].map(
-                  (skill) => (
-                    <span
-                      key={skill}
-                      className="rounded-md border border-white/[0.08] bg-white/[0.03] px-2.5 py-1 text-xs font-mono text-zinc-300 backdrop-blur-sm transition hover:border-violet-500/30 hover:bg-violet-500/5 hover:text-white"
-                    >
-                      {skill}
-                    </span>
-                  )
-                )}
+                {[
+                  "React",
+                  "Next.js",
+                  "JavaScript",
+                  "Angular",
+                  "Java",
+                  "Spring Boot",
+                ].map((skill) => (
+                  <span
+                    key={skill}
+                    className="rounded-md border border-white/[0.08] bg-white/[0.03] px-2.5 py-1 text-xs font-mono text-zinc-300 backdrop-blur-sm transition hover:border-violet-500/30 hover:bg-violet-500/5 hover:text-white"
+                  >
+                    {skill}
+                  </span>
+                ))}
               </div>
 
               {/* Action Buttons */}
@@ -72,7 +86,7 @@ export default function Home() {
                   href="/projects"
                   className="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 via-indigo-600 to-violet-700 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-violet-600/25 transition-all duration-200 hover:from-violet-500 hover:to-indigo-500 hover:shadow-violet-600/40 active:scale-95"
                 >
-                  <span>View My Projects</span>
+                  <span>{t.home.viewProjects}</span>
                   <svg
                     className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
                     fill="none"
@@ -92,7 +106,7 @@ export default function Home() {
                   href="/contact"
                   className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/[0.04] px-6 py-3 text-sm font-semibold text-zinc-200 backdrop-blur-sm transition-all duration-200 hover:border-white/30 hover:bg-white/[0.08] hover:text-white active:scale-95"
                 >
-                  <span>Contact Me</span>
+                  <span>{t.home.contactMe}</span>
                 </Link>
               </div>
             </div>
@@ -108,30 +122,28 @@ export default function Home() {
                   <div className="relative aspect-square w-full overflow-hidden rounded-2xl bg-zinc-950/80">
                     <Image
                       src="/julia.jpg"
-                      alt="Julia - Junior Web Developer"
+                      alt={t.home.imageAlt}
                       fill
                       priority
                       sizes="(max-width: 768px) 100vw, 420px"
                       className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                     />
-
-                
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
         </section>
-
       </main>
 
       {/* Footer */}
       <footer className="border-t border-white/[0.07] bg-[#07080c] py-8 text-center text-xs text-zinc-500">
         <div className="mx-auto max-w-6xl px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p>© {new Date().getFullYear()} Julia. Crafted with React &amp; Next.js.</p>
+          <p>© {new Date().getFullYear()} {t.home.footerText}</p>
           <div className="flex gap-6">
-            <a href="#home" className="hover:text-zinc-300 transition">Back to Top ↑</a>
+            <a href="#home" className="hover:text-zinc-300 transition">
+              {t.home.backToTop}
+            </a>
           </div>
         </div>
       </footer>
